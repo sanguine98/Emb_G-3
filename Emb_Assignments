@@ -1,0 +1,39 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+void func1(int num1, int num2, int *ptr)
+{
+    while (num1 >= 0)
+    {
+        int deciValue = 0;
+        for (int i = 0; i < num2; i++) {
+            deciValue |= ((num1 >> i) & 1) << (num2 - 1 - i);
+        }
+        ptr[num1] = deciValue;
+        num1--;
+    }
+}
+
+int main()
+{
+    int num1, num2;
+    printf("Enter a number: ");
+    scanf("%d", &num1);
+    printf("Enter the number of bits: ");
+    scanf("%d", &num2);
+
+    int* ptr1 = malloc(sizeof(int) * (num1 + 1));
+
+    func1(num1, num2, ptr1);
+    
+    printf("The reversal bits are \n");
+    
+    for (int i = num1; i >= 0; i--) {
+        printf("%d is ", i);
+        for (int j = num2 - 1; j >= 0; j--) {
+            printf("%d", (ptr1[i] >> j) & 1);
+        }
+        printf("  %d\n", ptr1[i]);
+    }
+    return 0;
+}
